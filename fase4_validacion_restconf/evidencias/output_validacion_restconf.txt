@@ -1,0 +1,21 @@
+=== METADATOS DE EJECUCIÓN RESTCONF ===
+Script: validacion_restconf.py
+Fecha/Hora: 2026-06-26 00:48:43
+Host VM: labvm
+======================================
+
+[+] Endpoint [hostname] guardado exitosamente.
+[+] Endpoint [loopback] guardado exitosamente.
+[+] Endpoint [interfaces] guardado exitosamente.
+[+] Endpoint [ntp] guardado exitosamente.
+
+--- INICIANDO COMPARACIÓN DE CRITERIOS COMPLIANCE ---
+Criterio 1 - Hostname corporativo: RTR-TECHSOL -> [OK]
+Criterio 2 - IP Loopback Gestión: 10.5.6.1 -> [OK]
+Criterio 3 - Descripción Interfaz WAN: Enlace-WAN-Temuco -> [OK]
+Criterio 4 - Servidor NTP Configurado: 8.8.8.8 -> [OK]
+
+======================================
+Resultado: 4/4 Criterios Correctos
+STATUS GLOBAL: CONFORME
+======================================
