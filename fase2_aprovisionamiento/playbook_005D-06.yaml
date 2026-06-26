@@ -1,0 +1,57 @@
+---
+- name: EP3 - Aprovisionamiento Automatizado Router CSR1kv
+  hosts: routers
+  gather_facts: no
+  vars_files:
+    - ../vars/vars_005D-06.yaml
+
+  tasks:
+    # 1. Respaldar la configuración actual (show running-config)
+    - name: 1. Respaldar la configuracion actual del router
+      ios_command:
+        commands: show running-config
+      register: backup_config
+
+    - name: Guardar respaldo en directorio interno de fase2
+      copy:
+        content: "{{ backup_config.stdout[0] }}"
+        dest: "respaldo/backup_005D-06.cfg"
+
+    # 2. Habilitar Servicios de Automatización (NETCONF y RESTCONF)
+    - name: 2. Habilitar NETCONF, RESTCONF e HTTP Seguro
+      ios_config:
+        lines:
+          - netconf-yang
+          - restconf
+          - ip http secure-server
+
+    # 3. Configurar Parámetros Corporativos Globales
+    - name: 3. Configurar Hostname Corporativo
+      ios_config:
+        lines:
+          - hostname {{ cliente.hostname }}
+
+    - name: 4. Configurar Banner de Acceso Corporativo
+      ios_banner:
+        banner: login
+        text: "{{ router.banner }}"
+        state: present
+
+    - name: 5. Configurar Servidor NTP
+      ios_config:
+        lines:
+          - ntp server {{ router.ntp_server }}
+
+    # 4. Configuración de Interfaces de Red
+    - name: 6. Configurar descripcion en interfaz WAN GigabitEthernet1
+      ios_config:
+        lines:
+          - description {{ router.descripcion_wan }}
+        parents: interface GigabitEthernet1
+
+    - name: 7. Crear e Instanciar Interfaz Loopback de Gestion
+      ios_config:
+        lines:
+          - ip address {{ router.loopback_ip }} {{ router.loopback_mask }}
+          - no shutdown
+        parents: interface Loopback{{ router.loopback_id }}
