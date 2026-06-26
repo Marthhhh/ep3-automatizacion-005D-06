@@ -1,0 +1,19 @@
+=== METADATOS DE EJECUCIÓN NETCONF ===
+Script: validacion_netconf.py
+Fecha/Hora: 2026-06-26 00:40:32
+Host VM: labvm
+======================================
+
+[*] Conectando vía NETCONF a 192.168.56.101:830...
+[+] Archivo XML crudo guardado en: evidencias/rpc_reply_raw.xml
+
+Criterio 1 - Hostname corporativo: RTR-TECHSOL -> [OK]
+Criterio 2 - IP Loopback Gestión: 10.5.6.1 -> [OK]
+Criterio 3 - Máscara Loopback Gestión: 255.255.255.0 -> [OK]
+Criterio 4 - Descripción Interfaz WAN: Enlace-WAN-Temuco -> [OK]
+Criterio 5 - Servidor NTP Configurado: 8.8.8.8 -> [OK]
+
+======================================
+Resultado: 5/5 Criterios Correctos
+STATUS GLOBAL: CONFORME
+======================================

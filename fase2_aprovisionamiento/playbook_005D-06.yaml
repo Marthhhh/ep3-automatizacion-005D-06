@@ -1,5 +1,5 @@
 ---
-- name: EP3 - Aprovisionamiento Automatizado Router CSR1kv
+- name: EP3 - Aprovisionamiento Automatizado Router CSR1kv (Fijo)
   hosts: routers
   gather_facts: no
   vars_files:
@@ -49,9 +49,10 @@
           - description {{ router.descripcion_wan }}
         parents: interface GigabitEthernet1
 
+    # Corrección Loopback definitiva: Estructura de bloque jerárquico correcta
     - name: 7. Crear e Instanciar Interfaz Loopback de Gestion
       ios_config:
         lines:
           - ip address {{ router.loopback_ip }} {{ router.loopback_mask }}
           - no shutdown
-        parents: interface Loopback{{ router.loopback_id }}
+        parents: "interface Loopback{{ router.loopback_id }}"
